@@ -6,7 +6,8 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-// connectDB();
+
+connectDB();
 
 
 app.use(express.json());
@@ -17,7 +18,8 @@ app.get('/', (req, res) => { res.send("Welcome to QUIKSPARES API");})
 app.get('*', (req, res) => { res.send("404 Error, Page not Found");})
 
 
-app.use(errorHandler);
+
+// app.use(errorHandler);
 
 
 app.listen(PORT, () => {
