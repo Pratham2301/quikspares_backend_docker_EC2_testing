@@ -12,12 +12,13 @@ import ProductRoutes from './routes/ProductRoutes.js'
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
+const HOST = process.env.HOST || 'localhost';
 
 
 connectDB();
 
 app.use(cors({
-    origin: ['https://shopify-commerce.netlify.app', 'http://localhost:3000'],
+    origin: ['http://localhost:3000'],
     methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
     credentials: true,
     exposedHeaders: ['set-cookie'],
@@ -33,9 +34,8 @@ app.get('/', (req, res) => {
     res.send("Welcome to QUIKSPARES API");
 })
 
-app.use('/api/auth', AuthRoutes);
-
-app.use('/api/product', ProductRoutes);
+app.use('/api/v1/auth', AuthRoutes);
+app.use('/api/v1/product', ProductRoutes);
 
 app.get('*', (req, res) => {
     res.send("404 Error, Page not Found");
@@ -46,6 +46,6 @@ app.get('*', (req, res) => {
 app.use(errorHandler);
 
 
-app.listen(PORT, () => {
-    console.log(`Listening on Port http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+    console.log(`Running on http://${HOST}:${PORT}`);
 });
